@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Happy Birthday ❤️</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1: #ffdde1;
+  --bg2: #ee9ca7;
+  --accent: #ff6b81;
+  --card: rgba(255,255,255,0.9);
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:'Poppins',system-ui;}
+body{
+  background: linear-gradient(135deg,var(--bg1),var(--bg2));
+  display:flex;align-items:center;justify-content:center;
+  padding:16px;
+  overflow-x:hidden;
+}
+.card{
+  width:100%;
+  max-width:760px;
+  background:rgba(255,255,255,0.25);
+  backdrop-filter: blur(8px);
+  border-radius:18px;
+  box-shadow:0 6px 20px rgba(0,0,0,0.15);
+  overflow:hidden;
+  padding:20px;
+  position:relative;
+}
+header{
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+  text-align:center;
+  justify-content:center;
+  position:relative;
+}
+.avatar{
+  width:72px;height:72px;border-radius:50%;
+  background:#fff6;
+  display:flex;align-items:center;justify-content:center;
+  font-size:36px
+}
+.title h1{margin:0;font-size:22px}
+.title p{margin:4px 0 0;color:#5a404a;font-size:14px}
+.hero{display:flex;gap:20px;flex-wrap:wrap;margin-top:16px}
+.left{flex:1;min-width:220px}
+.right{width:300px;max-width:100%;min-width:220px}
+.messageBox{background:var(--card);padding:16px;border-radius:12px}
+.messageBox p{margin:0 0 12px;font-size:15px}
+.messageBox .big{font-size:20px;font-weight:600;color:#2b0f18}
+.actions{display:flex;gap:10px;flex-wrap:wrap}
+.btn{flex:1;padding:10px;border-radius:10px;border:none;cursor:pointer;font-weight:600}
+.btn-primary{background:var(--accent);color:#fff}
+.btn{background:#fff3;color:#333}
+footer{text-align:center;margin-top:14px;font-size:12px;color:#333;position:relative;z-index:1}
+@media (max-width:600px){
+  body{align-items:flex-start}
+  .card{padding:14px}
+  .title h1{font-size:18px}
+  .avatar{width:60px;height:60px;font-size:28px}
+  .actions{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="card">
+  <header>
+    <div class="avatar">💖</div>
+    <div class="title">
+      <h1>Happy Birthday, Dear!</h1>
+      <p>A little surprise made just for you 💌</p>
+    </div>
+  </header>
+
+  <div class="hero">
+    <div class="left">
+      <div class="messageBox">
+        <p>Click "Surprise" to see something special ✨</p>
+        <div class="actions">
+          <!-- Redirect to surprise page -->
+          <button class="btn btn-primary" onclick="window.location='surprise.html'">Surprise 🎉</button>
+          <button class="btn" id="playBtn">Play This ▶️</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div style="background:#fff4;padding:12px;border-radius:12px;text-align:center">
+        <div style="font-size:48px">🎂</div>
+        <div style="font-weight:700;font-size:16px;margin-top:6px">This Is 4 YOU</div>
+        <div id="countdown" style="font-size:18px;margin-top:6px;color:#6a4b55">-- days --</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>Every line of this page is filled with my love for you 💖!</footer>
+</div>
+
+<!-- Audio -->
+<audio id="song" src="radhe_birthday.mp3"></audio>
+
+<script>
+// Countdown (auto update every second)
+function updateCountdown(){
+  // 🎂 Set your GF's birthday here (month: 0=Jan, so 8=Sept)
+  const target = new Date(new Date().getFullYear(), 8, 25); // 25 Sept
+  const now = new Date();
+
+  // If birthday already passed this year → move to next year
+  if(now > target){
+    target.setFullYear(target.getFullYear() + 1);
+  }
+
+  const diff = target - now;
+
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const minutes = Math.floor((diff / (1000 * 60)) % 60);
+  const seconds = Math.floor((diff / 1000) % 60);
+
+  document.getElementById('countdown').textContent =
+    `${days}d ${hours}h ${minutes}m ${seconds}s 🎉`;
+}
+
+// Run immediately + auto update
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// Play/Pause button
+const playBtn = document.getElementById('playBtn');
+const song = document.getElementById('song');
+playBtn.addEventListener('click',()=>{
+  if(song.paused){ song.play(); playBtn.textContent = "Pause ⏸️"; }
+  else { song.pause(); playBtn.textContent = "Play Song ▶️"; }
+});
+</script>
+
+</body>
+</html>
