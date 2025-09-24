@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: #111;
+      font-family: "Comic Sans MS", cursive, sans-serif;
+      animation: fadeIn 2s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Bulbs Row */
+    .bulbs {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      padding: 8px 0;
+      z-index: 2000;
+    }
+    
+    .bulb {
+      width: 20px;
+      height: 30px;
+      border-radius: 50% 50% 45% 45%;
+      background: #333;
+      box-shadow: 0 0 5px #000;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+    .on {
+      box-shadow: 0 0 20px 5px currentColor;
+
+    }
+
+    /* Fixed top sentence */
+    .wish {
+      position: fixed;
+      top: 60px; /* shifted below bulbs */
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      font-weight: bold;
+      color: #fff;
+      text-align: center;
+      text-shadow: 2px 2px 6px #ff4081, 0 0 10px #fff;
+      z-index: 1000;
+      animation: glow 5s ease-in-out infinite alternate;
+    }
+
+    h1 {
+      position: absolute;
+      width: 100%;
+      text-align: center;
+      top: 40%;
+      font-size: 60px;
+      color: white;
+      text-shadow: 2px 2px 10px #ff4081, 0 0 25px #fff, 0 0 35px #ff80ab;
+      animation: moveText 5s linear infinite, glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes moveText {
+      0% { transform: translateX(-100%); }
+      50% { transform: translateX(0); }
+      100% { transform: translateX(100%); }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #fff, 0 0 20px #ff4081, 0 0 30px #ff80ab; }
+      to { text-shadow: 0 0 20px #fff, 0 0 40px #ff4081, 0 0 60px #ff80ab; }
+    }
+
+    .balloon, .heart, .flower, .sparkle {
+      position: absolute;
+      bottom: -100px;
+      animation: floatUp 8s linear infinite;
+      opacity: 0.8;
+    }
+
+    .balloon { font-size: 50px; }
+    .heart { font-size: 30px; color: red; }
+    .flower { font-size: 35px; }
+    .sparkle { font-size: 20px; color: yellow; text-shadow: 0 0 10px #fff; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(1); opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.5); opacity: 0; }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      h1 { font-size: 40px; }
+      .wish { font-size: 20px; padding: 0 10px; }
+    }
+
+    @media (max-width: 480px) {
+      h1 { font-size: 28px; }
+      .wish { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Bulbs Row -->
+  <div class="bulbs">
+    <div class="bulb" style="color: red;"></div>
+    <div class="bulb" style="color: yellow;"></div>
+    <div class="bulb" style="color: green;"></div>
+    <div class="bulb" style="color: #fff;"></div>
+    <div class="bulb" style="color: blue;"></div>
+    <div class="bulb" style="color: orange;"></div>
+    <div class="bulb" style="color: pink;"></div>
+    <div class="bulb" style="color: cyan;"></div>
+  </div>
+
+  <!-- Fixed sentence -->
+  <div class="wish">💖 Wishing you all the love, joy, and happiness on your special day 💖</div>
+
+  <!-- Moving text -->
+  <h1>🎉 Happy Birthday Radhe 🎉</h1>
+
+  <script>
+    // Function to create balloons, hearts, flowers, sparkles
+    function createElement(symbol, className) {
+      const elem = document.createElement("div");
+      elem.className = className;
+      elem.innerHTML = symbol;
+      elem.style.left = Math.random() * window.innerWidth + "px";
+      elem.style.animationDuration = (5 + Math.random() * 5) + "s";
+      document.body.appendChild(elem);
+      setTimeout(() => { elem.remove(); }, 8000); // remove after animation
+    }
+
+    setInterval(() => {
+      createElement("🎈", "balloon");   // balloons
+      createElement("❤️", "heart");    // hearts
+      if (Math.random() > 0.6) createElement("🌸", "flower"); // flowers
+      if (Math.random() > 0.7) createElement("✨", "sparkle"); // sparkles
+    }, 800);
+
+    // Bulbs blinking effect
+    const bulbs = document.querySelectorAll(".bulb");
+    setInterval(() => {
+      bulbs.forEach((bulb, i) => {
+        if (bulb.classList.contains("on")) {
+          bulb.classList.remove("on");
+          bulb.style.background = "#333";
+        } else {
+          bulb.classList.add("on");
+          bulb.style.background = bulb.style.color;
+        }
+      });
+    }, 1000);
+  </script>
+</body>
+</html>
